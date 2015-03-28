@@ -1,7 +1,8 @@
-function Answer (text, result, id) {
+function Answer (text, nextQuestion, result, id) {
   return {
     textAnswer: text,
-    result: result,
+    result: result == undefined ? null : result,
+    nextQuestion: ParseQuestions(nextQuestion),
     show: function(answerBlock) {
       answerBlock.innerHTML += '<label data-id="' + id + '"><input type="radio" name="question"/>' + this.textAnswer + '</label>'
     },
@@ -22,6 +23,7 @@ function Question (text, answers) {
         this.questionBlock = document.createElement('div')
         this.questionBlock.className = 'question-block'
       }
+      this.questionBlock.innerHTML = ''
       var questionText = document.createElement('div'),
         questionAnswers = document.createElement('div'),
         questionButton = document.createElement('input')
@@ -40,16 +42,25 @@ function Question (text, answers) {
     },
     clickAnswerButton: function() {
       var id = Number(document.querySelector('input:checked').parentNode.getAttribute('data-id'))
-      this.answersQuestion[id].showResult(this.questionBlock)
+      if (this.answersQuestion[id].result == null) {
+        currentQuestion = this.answersQuestion[id].nextQuestion
+        currentQuestion.show()
+      }
+      else {
+        this.answersQuestion[id].showResult(this.questionBlock)
+      }
     }
   }
 }
 
 function ParseQuestions (questions) {
+  if (questions == null) {
+    return null
+  }
   return new Question(
     questions.textQuestion,
     questions.answersQuestion.map(function (answer, id) {
-      return new Answer(answer.textAnswer, answer.result, id)
+      return new Answer(answer.textAnswer, answer.nextQuestion, answer.result, id)
     })
   )
 }
