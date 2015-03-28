@@ -33,7 +33,19 @@ var questions = [
           answersQuestion: [
             {
               textAnswer: 'школа',
-              result: 'школота'
+              nextQuestion: {
+                textQuestion: 'а в каком ты классе?',
+                answersQuestion: [
+                  {
+                    textAnswer: '5',
+                    result: 'малыш'
+                  },
+                  {
+                    textAnswer: '12',
+                    result: 'такого класса нет)'
+                  }
+                ]
+              }
             },
             {
               textAnswer: 'техникум',

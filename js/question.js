@@ -4,10 +4,10 @@ function Answer (text, nextQuestion, result, id) {
     result: result == undefined ? null : result,
     nextQuestion: ParseQuestions(nextQuestion),
     show: function(answerBlock) {
-      answerBlock.innerHTML += '<label data-id="' + id + '"><input type="radio" name="question"/>' + this.textAnswer + '</label>'
+      answerBlock.innerHTML += '<label class="answer-question" data-id="' + id + '"><input type="radio" name="question"/>' + this.textAnswer + '</label>'
     },
     showResult: function(block) {
-      block.innerText = this.result
+      block.innerHTML = '<div class="question-result">' + this.result + '</div>'
     }
   }
 }
@@ -27,13 +27,16 @@ function Question (text, answers) {
       var questionText = document.createElement('div'),
         questionAnswers = document.createElement('div'),
         questionButton = document.createElement('input')
+      questionText.className = 'question-text'
       questionText.innerText = this.textQuestion
       questionAnswers.innerHTML = ''
       for (var i = 0; i < this.answersQuestion.length; i++) {
         this.answersQuestion[i].show(questionAnswers)
       }
+      questionAnswers.className = 'question-answers'
       questionButton.type = 'button'
       questionButton.value = 'Ответить'
+      questionButton.className = 'question-button'
       this.questionBlock.appendChild(questionText)
       this.questionBlock.appendChild(questionAnswers)
       this.questionBlock.appendChild(questionButton)
