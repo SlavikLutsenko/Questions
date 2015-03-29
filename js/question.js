@@ -28,8 +28,7 @@ Answer.prototype.show = function(answerBlock) {
 }
 
 Answer.prototype.showResult = function(block) {
-  block.clear()
-  block.addEl($.newEl('div').addClass('question-result').text(this.result))
+  block.clear().addEl($.newEl('div').addClass('question-result').text(this.result))
 }
 
 function Question (text, answers) {
@@ -37,12 +36,49 @@ function Question (text, answers) {
   this.answersQuestion = answers
   this.answerId = 0
   this.previousQuestion = null
+  this.completed = false
 }
 
 Question.prototype.questionBlock = $('.question-block')
 Question.prototype.questionText = $('.question-text')
 Question.prototype.questionAnswers = $('.question-answers')
 Question.prototype.questionButton = $('.question-button')
+Question.prototype.leftButton = $('.left-button')
+Question.prototype.rightButton = $('.right-button')
+
+Question.prototype.controlButtons = function() {
+  this.removeAllEventListener()
+  this.currentFunctionClickAnswerButton = this.clickAnswerButton.bind(this)
+  this.questionButton.addEventListener('click', this.currentFunctionClickAnswerButton, false)
+  this.currentFunctionClickOnControlButton = this.clickOnControlButtons.bind(this)
+  this.leftButton.addEventListener('click', this.currentFunctionClickOnControlButton, false)
+  this.rightButton.addEventListener('click', this.currentFunctionClickOnControlButton, false)
+  if (this.previousQuestion == null) {
+    Question.prototype.leftButton.addClass('disabled')
+  }
+  else {
+    Question.prototype.leftButton.rmClass('disabled')
+  }
+  if (this.completed) {
+    Question.prototype.rightButton.rmClass('disabled')
+  }
+  else {
+    Question.prototype.rightButton.addClass('disabled')
+  }
+}
+
+Question.prototype.clickOnControlButtons = function(el) {
+  el = $(el.target)
+  if (!el.hasClass('disabled')) {
+    this.removeAllEventListener()
+    if (el.hasClass('left-button')) {
+      this.previousQuestion.show()
+    }
+    if (el.hasClass('right-button')) {
+      this.answersQuestion[this.answerId].nextQuestion.show()
+    }
+  }
+}
 
 Question.prototype.show = function() {
   this.questionText.text(this.textQuestion)
@@ -51,19 +87,25 @@ Question.prototype.show = function() {
     this.answersQuestion[i].show(this.questionAnswers)
   }
   this.questionAnswers.$('label.answer-question[data-id="' + this.answerId + '"] input').checked = true
-  this.currentFunctionClickAnswerButton = this.clickAnswerButton.bind(this)
-  this.questionButton.addEventListener('click', this.currentFunctionClickAnswerButton, false)
+  this.controlButtons()
 }
 
 Question.prototype.clickAnswerButton = function() {
-  this.questionButton.removeEventListener('click', this.currentFunctionClickAnswerButton, false)
-  var id = Number($('input:checked').parent().getAttr('data-id'))
-  if (this.answersQuestion[id].result == null) {
-    this.answersQuestion[id].nextQuestion.show()
+  this.removeAllEventListener()
+  this.answerId = Number($('input:checked').parent().getAttr('data-id'))
+  this.completed = true
+  if (this.answersQuestion[this.answerId].result == null) {
+    this.answersQuestion[this.answerId].nextQuestion.show()
   }
   else {
-    this.answersQuestion[id].showResult(this.questionBlock)
+    this.answersQuestion[this.answerId].showResult(this.questionBlock)
   }
+}
+
+Question.prototype.removeAllEventListener = function() {
+  this.questionButton.removeEventListener('click', this.currentFunctionClickAnswerButton, false)
+  this.leftButton.removeEventListener('click', this.currentFunctionClickOnControlButton, false)
+  this.rightButton.removeEventListener('click', this.currentFunctionClickOnControlButton, false)
 }
 
 function ParseQuestions (questions, previousQuestion) {
@@ -79,6 +121,4 @@ function ParseQuestions (questions, previousQuestion) {
 }
 
 var c = ParseQuestions(questions[Math.trunc(Math.random() * questions.length)])
-
-//ParseQuestions(questions[Math.trunc(Math.random() * questions.length)]).show()
 c.show()

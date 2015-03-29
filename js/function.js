@@ -23,6 +23,9 @@ function $(query) {
     this.className = this.className.replace(RegExp('\\s?' + className + '\\s?', 'g'), '')
     return this
   }
+  el.hasClass = function(className) {
+    return this.className.search(className) != -1
+  }
   el.setAttr = function(attr, value) {
     this.setAttribute(attr, value)
     return this
