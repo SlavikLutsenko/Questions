@@ -98,6 +98,27 @@ body{
   border-left-color: #eee;
 }
 
+.question-block .left-button.disabled,
+.question-block .right-button.disabled{
+  opacity: 0.4;
+  cursor: default;
+}
+
+.question-block .left-button.disabled:hover,
+.question-block .right-button.disabled:hover{
+  background: transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
+}
+
+.question-block .left-button.disabled:hover:before{
+  border-right-color: #F7F7F7;
+}
+
+.question-block .right-button.disabled:hover:before{
+  border-left-color: #F7F7F7;
+}
+
 .question-block .question-text{
   padding: 15px;
 }
