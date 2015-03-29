@@ -1,13 +1,31 @@
+/*global $ */
+/*global currentQuestion*/
+
+var body = $(document.body)
+
 function Answer (text, nextQuestion, result, id) {
   return {
     textAnswer: text,
     result: result == undefined ? null : result,
     nextQuestion: ParseQuestions(nextQuestion),
     show: function(answerBlock) {
-      answerBlock.innerHTML += '<label class="answer-question" data-id="' + id + '"><input type="radio" name="question"/>' + this.textAnswer + '</label>'
+      answerBlock.addEl(
+        $.newEl('label')
+          .addClass('answer-question')
+          .setAttr('data-id', id)
+          .addEl(
+            $.newEl('input')
+              .setAttr('type', 'radio')
+              .setAttr('name')
+          ).addEl(
+            $.newEl('span')
+              .text(this.textAnswer)
+          )
+      )
     },
     showResult: function(block) {
-      block.innerHTML = '<div class="question-result">' + this.result + '</div>'
+      block.clear()
+      block.addEl($.newEl('div').addClass('question-result').text(this.result))
     }
   }
 }
@@ -18,33 +36,23 @@ function Question (text, answers) {
     textQuestion: text,
     answersQuestion: answers,
     show: function() {
-      this.questionBlock = this.questionBlock || document.querySelector('.question-block')
+      this.questionBlock = this.questionBlock || body.$('.question-block')
       if (this.questionBlock == null) {
-        this.questionBlock = document.createElement('div')
-        this.questionBlock.className = 'question-block'
+        this.questionBlock = $.newEl('div').addClass('question-block')
+        body.addEl(this.questionBlock)
       }
-      this.questionBlock.innerHTML = ''
-      var questionText = document.createElement('div'),
-        questionAnswers = document.createElement('div'),
-        questionButton = document.createElement('input')
-      questionText.className = 'question-text'
-      questionText.innerText = this.textQuestion
-      questionAnswers.innerHTML = ''
+      this.questionBlock.clear()
+      this.questionBlock.addEl($.newEl('div').addClass('question-text').text(this.textQuestion))
+      var questionAnswers = $.newEl('div').addClass('question-answers').clear(),
+        questionButton = $.newEl('input').setAttr('type', 'button').setAttr('value', 'Ответить').addClass('question-button')
       for (var i = 0; i < this.answersQuestion.length; i++) {
         this.answersQuestion[i].show(questionAnswers)
       }
-      questionAnswers.className = 'question-answers'
-      questionButton.type = 'button'
-      questionButton.value = 'Ответить'
-      questionButton.className = 'question-button'
-      this.questionBlock.appendChild(questionText)
-      this.questionBlock.appendChild(questionAnswers)
-      this.questionBlock.appendChild(questionButton)
-      document.body.appendChild(this.questionBlock)
+      this.questionBlock.addEl(questionAnswers).addEl(questionButton)
       questionButton.addEventListener('click', this.clickAnswerButton.bind(this), false)
     },
     clickAnswerButton: function() {
-      var id = Number(document.querySelector('input:checked').parentNode.getAttribute('data-id'))
+      var id = Number($('input:checked').parent().getAttr('data-id'))
       if (this.answersQuestion[id].result == null) {
         currentQuestion = this.answersQuestion[id].nextQuestion
         currentQuestion.show()
