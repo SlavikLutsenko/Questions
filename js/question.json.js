@@ -143,7 +143,7 @@ var questions = [
                         },
                         {
                           textAnswer: 'Пять минут',
-                          result: 'Да ты супер плавец'
+                          result: 'Да ты супер пловец'
                         }
                       ]
                     }

@@ -1,7 +1,9 @@
+var buttonMainQuestions = $('.button-main-quetions')
+
 function Answer (text, nextQuestion, result, id, previousQuestion) {
   this.textAnswer = text
   this.result = result == undefined ? null : result
-  this.nextQuestion = ParseQuestions(nextQuestion, previousQuestion)
+  this.nextQuestion = parseQuestions(nextQuestion, previousQuestion)
   this.id = id
 }
 
@@ -38,11 +40,6 @@ function Question (text, answers) {
 }
 
 Question.prototype.questionBlock = $('.question-block')
-Question.prototype.questionText = $('.question-text')
-Question.prototype.questionAnswers = $('.question-answers')
-Question.prototype.questionButton = $('.question-button')
-Question.prototype.leftButton = $('.left-button')
-Question.prototype.rightButton = $('.right-button')
 
 Question.prototype.controlButtons = function() {
   this.removeAllEventListener()
@@ -106,7 +103,7 @@ Question.prototype.removeAllEventListener = function() {
   this.rightButton.removeEventListener('click', this.currentFunctionClickOnControlButton, false)
 }
 
-function ParseQuestions (questions, previousQuestion) {
+function parseQuestions (questions, previousQuestion) {
   if (questions == null) {
     return null
   }
@@ -118,5 +115,41 @@ function ParseQuestions (questions, previousQuestion) {
   return result
 }
 
-var c = ParseQuestions(questions[Math.floor(Math.random() * questions.length)])
-c.show()
+function showQuestion(e) {
+  var el = $(e.target)
+  Question.prototype.questionText = $.newEl('div').addClass('question-text')
+  Question.prototype.questionAnswers = $.newEl('div').addClass('question-answers')
+  Question.prototype.questionButton = $.newEl('input').addClass('question-button').setAttr('value', 'Ответить').setAttr('type', 'button')
+  Question.prototype.leftButton = $.newEl('div').addClass('left-button')
+  Question.prototype.rightButton = $.newEl('div').addClass('right-button')
+  Question.prototype.questionBlock
+    .clear()
+    .rmClass('clear')
+    .addEl(Question.prototype.questionText)
+    .addEl(Question.prototype.questionAnswers)
+    .addEl(Question.prototype.questionButton)
+    .addEl(Question.prototype.leftButton)
+    .addEl(Question.prototype.rightButton)
+  buttonMainQuestions.rmClass('clear')
+  buttonMainQuestions.addEventListener('click', showMainQuestion, false)
+  parseQuestions(questions[el.getAttr('data-question-id')]).show()
+}
+
+function showMainQuestion() {
+  buttonMainQuestions.addClass('clear')
+  buttonMainQuestions.removeEventListener('click', showMainQuestion, false)
+  Question.prototype.questionBlock.clear().addClass('clear')
+  questions.map(function(el, id) {
+    var newEl = $.newEl('div')
+          .addClass('main-question')
+          .text(el.textQuestion)
+          .setAttr('data-question-id', id)
+    newEl.addEventListener('click', showQuestion, false)
+    Question.prototype.questionBlock.addEl(newEl)
+  })
+}
+
+// var c = ParseQuestions(questions[Math.floor(Math.random() * questions.length)])
+// c.show()
+
+showMainQuestion()
