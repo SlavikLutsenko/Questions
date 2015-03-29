@@ -98,57 +98,6 @@ body{
   border-left-color: #eee;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .question-block .question-text{
   padding: 15px;
 }
@@ -170,8 +119,29 @@ body{
   display: block;
   border-radius: 3px;
   cursor: pointer;
-  padding: 10px 15px;
+  padding: 10px 15px 10px 40px;
   border-bottom: 1px solid #ccc;
+  position: relative;
+}
+
+.question-block .question-answers .answer-question input{
+  display: none;
+}
+
+.question-block .question-answers .answer-question .radio{
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #46DBC2;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  margin-top: -10px;
+}
+
+.question-block .question-answers .answer-question input:checked + .radio{
+  background: #46DBC2
 }
 
 .question-block .question-answers :last-child{
