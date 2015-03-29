@@ -118,5 +118,5 @@ function ParseQuestions (questions, previousQuestion) {
   return result
 }
 
-var c = ParseQuestions(questions[Math.trunc(Math.random() * questions.length)])
+var c = ParseQuestions(questions[Math.floor(Math.random() * questions.length)])
 c.show()

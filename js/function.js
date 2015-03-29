@@ -48,7 +48,13 @@ function $(query) {
     if (str == null) {
       return this.innerText
     }
-    this.innerText = str
+    var ua = navigator.userAgent
+    if (ua.search(/Firefox/) > -1) {
+      this.textContent = str
+    }
+    else {
+      this.innerText = str
+    }
     return this
   }
   el.clear = function() {
