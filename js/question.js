@@ -45,12 +45,13 @@ Question.prototype.show = function() {
   for (var i = 0; i < this.answersQuestion.length; i++) {
     this.answersQuestion[i].show(this.questionAnswers)
   }
-  this.currentFunction__ClickAnswerButton = this.clickAnswerButton.bind(this)
-  this.questionButton.addEventListener('click', this.currentFunction__ClickAnswerButton, false)
+  this.questionAnswers.$('label input').checked = true
+  this.currentFunctionClickAnswerButton = this.clickAnswerButton.bind(this)
+  this.questionButton.addEventListener('click', this.currentFunctionClickAnswerButton, false)
 }
 
 Question.prototype.clickAnswerButton = function() {
-  this.questionButton.removeEventListener('click', this.currentFunction__ClickAnswerButton, false)
+  this.questionButton.removeEventListener('click', this.currentFunctionClickAnswerButton, false)
   var id = Number($('input:checked').parent().getAttr('data-id'))
   if (this.answersQuestion[id].result == null) {
     currentQuestion = this.answersQuestion[id].nextQuestion
