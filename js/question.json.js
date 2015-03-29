@@ -419,24 +419,138 @@ var questions = [
         }
       }
     ]
+  },
+  {
+    textQuestion: 'В каком месте HTML документа может располагаться JavaScript код?',
+    answersQuestion: [
+      {
+        textAnswer: 'В секции <head>',
+        result: 'Это не правильный ответ. Вы не сдали.'
+      },
+      {
+        textAnswer: 'В секции <body>',
+        result: 'Это не правильный ответ. Вы не сдали.'
+      },
+      {
+        textAnswer: 'В секции <head> и в секции <body>',
+        nextQuestion: {
+          textQuestion: 'Выберите JavaScript команду позволяющую вывести текст на страницу.',
+          answersQuestion: [
+            {
+              textAnswer: 'write("Текст выведен с помощью JavaScript")',
+              result: 'Это не правильный ответ. Вы не сдали.'
+            },
+            {
+              textAnswer: 'document.write("Текст выведен с помощью JavaScript")',
+              nextQuestion: {
+                textQuestion: 'Выберите комментарий использующийся в JavaScript',
+                answersQuestion: [
+                  {
+                    textAnswer: '//Я являюсь комментарием',
+                    nextQuestion: {
+                      textQuestion: 'Какое событие позволяет выполнять код после щелчка мыши?',
+                      answersQuestion: [
+                        {
+                          textAnswer: 'mouseout',
+                          result: 'Это не правильный ответ. Вы не сдали.'
+                        },
+                        {
+                          textAnswer: 'mouseclick',
+                          result: 'Это не правильный ответ. Вы не сдали.'
+                        },
+                        {
+                          textAnswer: 'onmouseclick',
+                          result: 'Это не правильный ответ. Вы не сдали.'
+                        },
+                        {
+                          textAnswer: 'onclick',
+                          nextQuestion: {
+                            textQuestion: 'Какой BOM объект содержит информацию о браузере пользователя?',
+                            answersQuestion: [
+                              {
+                                textAnswer: 'history',
+                                result: 'Это не правильный ответ. Вы не сдали.'
+                              },
+                              {
+                                textAnswer: 'browser',
+                                result: 'Это не правильный ответ. Вы не сдали.'
+                              },
+                              {
+                                textAnswer: 'navigator',
+                                nextQuestion: {
+                                  textQuestion: 'Какое выражение позволяет проверять участки кода на наличие ошибок?',
+                                  answersQuestion: [
+                                    {
+                                      textAnswer: 'error..catch',
+                                      result: 'Это не правильный ответ. Вы не сдали.'
+                                    },
+                                    {
+                                      textAnswer: 'try..catch',
+                                      nextQuestion: {
+                                        textQuestion: 'Укажите название встроенного JavaScript объекта для работы с датой и временем.',
+                                        answersQuestion: [
+                                          {
+                                            textAnswer: 'datetime',
+                                            result: 'Это не правильный ответ. Вы не сдали.'
+                                          },
+                                          {
+                                            textAnswer: 'calendar',
+                                            result: 'Это не правильный ответ. Вы не сдали.'
+                                          },
+                                          {
+                                            textAnswer: 'date',
+                                            nextQuestion: {
+                                              textQuestion: 'Имеет ли JavaScript встроенную поддержку регулярных выражений?',
+                                              answersQuestion: [
+                                                {
+                                                  textAnswer: 'Да',
+                                                  result: 'Вы прошли этот тест ответив на все вопросы правильно. Поздравляю!!!'
+                                                },
+                                                {
+                                                  textAnswer: 'Нет',
+                                                  result: 'Это не правильный ответ. Вы не сдали.'
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      textAnswer: 'error..try',
+                                      result: 'Это не правильный ответ. Вы не сдали.'
+                                    },
+                                    {
+                                      textAnswer: 'throw',
+                                      result: 'Это не правильный ответ. Вы не сдали.'
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    textAnswer: '<!-- Я являюсь комментарием -->',
+                    result: 'Это не правильный ответ. Вы не сдали.'
+                  },
+                  {
+                    textAnswer: '<? Я являюсь комментарием ?> ',
+                    result: 'Это не правильный ответ. Вы не сдали.'
+                  }
+                ]
+              }
+            },
+            {
+              textAnswer: 'text("Текст выведен с помощью JavaScript")',
+              result: 'Это не правильный ответ. Вы не сдали.'
+            }
+          ]
+        }
+      }
+    ]
   }
 ]
-/*
-{
-  textQuestion: '',
-  answersQuestion: [
-    {
-      textAnswer: 'ok',
-      result: 'ok'
-    },
-    {
-      textAnswer: 'ok',
-      result: 'ok'
-    },
-    {
-      textAnswer: 'ok',
-      result: 'ok'
-    }
-  ]
-}
-*/
