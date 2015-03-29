@@ -165,6 +165,10 @@ body{
   background: #46DBC2
 }
 
+.question-block .question-answers .answer-question .answer-text{
+  display: block;
+}
+
 .question-block .question-answers :last-child{
   border-bottom: none;
 }

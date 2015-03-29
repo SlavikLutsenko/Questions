@@ -19,6 +19,7 @@ Answer.prototype.show = function(answerBlock) {
           .addClass('radio')
       ).addEl(
         $.newEl('span')
+          .addClass('answer-text')
           .text(this.textAnswer)
       )
   )
