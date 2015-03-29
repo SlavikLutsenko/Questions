@@ -10,6 +10,8 @@
     "node": true
   },
   "globals": {
+    "$": false,
+    "questions": false,
     "fetch": true // TODO remove after fixing https://github.com/matthew-andrews/isomorphic-fetch/issues/16
   },
   "rules": {

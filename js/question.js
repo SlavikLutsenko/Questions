@@ -1,6 +1,3 @@
-/*global $ */
-/*global questions*/
-
 function Answer (text, nextQuestion, result, id, previousQuestion) {
   this.textAnswer = text
   this.result = result == undefined ? null : result

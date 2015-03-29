@@ -6,8 +6,8 @@ function $(query) {
   else {
     el = query
   }
-  el.$ = function(query) {
-    return $(document.querySelector(query))
+  el.$ = function(childQuery) {
+    return $(document.querySelector(childQuery))
   }
   el.addEl = function(element) {
     this.appendChild(element)
